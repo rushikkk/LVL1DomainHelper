@@ -22,9 +22,27 @@ namespace LVL1DomainHelper
         {
             System.Net.IPAddress[] ip = System.Net.Dns.GetHostAddresses(domainName.Text);
             ipAddress.Text = ip[0].ToString();
+
             var resolver = new DnsStubResolver();
+
             var mxs = resolver.Resolve<MxRecord>(domainName.Text, RecordType.Mx);
-            mxRecord.Text = mxs[0].ToString();
+            String s1 = mxs[0].ToString();
+            String[] words = s1.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            mxRecord.Text = words.Last();
+
+            var nss = resolver.Resolve<NsRecord>(domainName.Text, RecordType.Ns);
+            // String s2 = nss[0].ToString();
+            //String[] wns = s2.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            //nsRecords.Text = wns.Last() + '\n';
+            //nsRecords.Text = '';
+
+            nsRecords.Clear();
+            foreach (NsRecord element in nss)
+            {
+                s1 = element.ToString();
+                String[] wns = s1.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);                
+                nsRecords.Text += wns.Last() + '\n';
+            }
         }
     }
 }

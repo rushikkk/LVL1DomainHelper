@@ -35,6 +35,8 @@
             this.ipAddress = new System.Windows.Forms.TextBox();
             this.mxRecordLabel = new System.Windows.Forms.Label();
             this.mxRecord = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nsRecords = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // domainNameLabel
@@ -95,11 +97,30 @@
             this.mxRecord.Size = new System.Drawing.Size(245, 20);
             this.mxRecord.TabIndex = 6;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(60, 274);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "NS Records";
+            // 
+            // nsRecords
+            // 
+            this.nsRecords.Location = new System.Drawing.Point(63, 291);
+            this.nsRecords.Name = "nsRecords";
+            this.nsRecords.Size = new System.Drawing.Size(254, 96);
+            this.nsRecords.TabIndex = 9;
+            this.nsRecords.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.nsRecords);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.mxRecord);
             this.Controls.Add(this.mxRecordLabel);
             this.Controls.Add(this.ipAddress);
@@ -123,6 +144,8 @@
         private System.Windows.Forms.TextBox ipAddress;
         private System.Windows.Forms.Label mxRecordLabel;
         private System.Windows.Forms.TextBox mxRecord;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RichTextBox nsRecords;
     }
 }
 
