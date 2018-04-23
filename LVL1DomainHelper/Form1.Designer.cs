@@ -76,8 +76,10 @@
             // 
             // ipAddress
             // 
+            this.ipAddress.BackColor = System.Drawing.Color.White;
             this.ipAddress.Location = new System.Drawing.Point(60, 144);
             this.ipAddress.Name = "ipAddress";
+            this.ipAddress.ReadOnly = true;
             this.ipAddress.Size = new System.Drawing.Size(223, 20);
             this.ipAddress.TabIndex = 4;
             // 
@@ -92,8 +94,10 @@
             // 
             // mxRecord
             // 
+            this.mxRecord.BackColor = System.Drawing.Color.White;
             this.mxRecord.Location = new System.Drawing.Point(60, 203);
             this.mxRecord.Name = "mxRecord";
+            this.mxRecord.ReadOnly = true;
             this.mxRecord.Size = new System.Drawing.Size(245, 20);
             this.mxRecord.TabIndex = 6;
             // 
@@ -108,8 +112,10 @@
             // 
             // nsRecords
             // 
+            this.nsRecords.BackColor = System.Drawing.Color.White;
             this.nsRecords.Location = new System.Drawing.Point(63, 291);
             this.nsRecords.Name = "nsRecords";
+            this.nsRecords.ReadOnly = true;
             this.nsRecords.Size = new System.Drawing.Size(254, 96);
             this.nsRecords.TabIndex = 9;
             this.nsRecords.Text = "";
@@ -130,6 +136,7 @@
             this.Controls.Add(this.domainNameLabel);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
