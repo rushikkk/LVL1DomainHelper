@@ -49,87 +49,65 @@ namespace LVL1DomainHelper
                 else
                 {
                     ipAddress.Text = ip[0].ToString();
-                }
+                }                
+            }
+            catch (Exception)
+            {
+                ipAddress.Clear();
+                mxRecord.Clear();
+                nsRecords.Clear();
+                MessageBox.Show("Введено неверное имя домена или данный домен не существует");
+                return;
+            }
 
-                // инициализация резолвера ресурсных записей домена
-                var resolver = new DnsStubResolver();
+            // инициализация резолвера ресурсных записей домена
+            var resolver = new DnsStubResolver();
 
-                // определение MX-записи домена
-                var mxs = resolver.Resolve<MxRecord>(domainName.Text, RecordType.Mx);
-                String s1 = mxs[0].ToString();
-                String[] words = s1.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
+            // определение MX-записи домена
+            var mxs = resolver.Resolve<MxRecord>(domainName.Text, RecordType.Mx);
+            String s1;
+            String[] words = { };
+            System.Net.IPAddress[] mxip = null;
+            if (mxs.Any())
+            {
+                s1 = mxs[0].ToString();
+                words = s1.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 // Резолв IP-адреса MX-записи
-                System.Net.IPAddress[] mxip = System.Net.Dns.GetHostAddresses(words.Last().TrimEnd('.'));
+                mxip = System.Net.Dns.GetHostAddresses(words.Last().TrimEnd('.'));
+            }
 
-                // Определение вхождения IP-адреса MX-записи в подсеть и вывод информации в поле 'Почта (MX-запись)'
-                if (okby.Contains(mxip[0].ToString()))
-                {
-                    mxRecord.Text = words.Last().TrimEnd('.') + " (наш хостинг)";
-                }
-                else if (hosterby.MatchExists(mxip[0].ToString()))
-                {
-                    mxRecord.Text = words.Last().TrimEnd('.') + " hoster.by";
-                }
-                else
-                {
-                    mxRecord.Text = words.Last().TrimEnd('.');
-                }
 
-                // определение NS-записей домена
-                var nss = resolver.Resolve<NsRecord>(domainName.Text, RecordType.Ns);
+            
 
-                // вывод NS-записей домена в поле 'DNS-серверы (NS-записи)'
-                nsRecords.Clear();
-                nss.Sort();
-                foreach (NsRecord element in nss)
-                {
-                    s1 = element.ToString();
-                    String[] wns = s1.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    nsRecords.Text += wns.Last().TrimEnd('.') + '\n';
-                }
-            }
-            catch (ArgumentNullException)
+            // Определение вхождения IP-адреса MX-записи в подсеть и вывод информации в поле 'Почта (MX-запись)'
+            if (mxs.Any() == false)
             {
-                ipAddress.Clear();
-                mxRecord.Clear();
-                nsRecords.Clear();
-                MessageBox.Show("Введено неверное имя домена или данный домен не существует");
+                mxRecord.Text = "Почтовые записи отсутствуют";
             }
-            catch (ArgumentOutOfRangeException)
+            else if (okby.Contains(mxip[0].ToString()))
             {
-                ipAddress.Clear();
-                mxRecord.Clear();
-                nsRecords.Clear();
-                MessageBox.Show("Введено неверное имя домена или данный домен не существует");
+                mxRecord.Text = words.Last().TrimEnd('.') + " (наш хостинг)";
             }
-            catch (ArgumentException)
+            else if (hosterby.MatchExists(mxip[0].ToString()))
             {
-                ipAddress.Clear();
-                mxRecord.Clear();
-                nsRecords.Clear();
-                MessageBox.Show("Введено неверное имя домена или данный домен не существует");
+                mxRecord.Text = words.Last().TrimEnd('.') + " hoster.by";
             }
-            catch (System.Net.Sockets.SocketException)
+            else
             {
-                ipAddress.Clear();
-                mxRecord.Clear();
-                nsRecords.Clear();
-                MessageBox.Show("Введено неверное имя домена или данный домен не существует");
+                mxRecord.Text = words.Last().TrimEnd('.');
             }
-            catch (Exception ex)
+
+            // определение NS-записей домена
+            var nss = resolver.Resolve<NsRecord>(domainName.Text, RecordType.Ns);
+
+            // вывод NS-записей домена в поле 'DNS-серверы (NS-записи)'
+            nsRecords.Clear();
+            nss.Sort();
+            foreach (NsRecord element in nss)
             {
-                if (domainName.Text == "")
-                {
-                    ipAddress.Clear();
-                    mxRecord.Clear();
-                    nsRecords.Clear();
-                    MessageBox.Show("Введено неверное имя домена или данный домен не существует");
-                }
-                else
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                s1 = element.ToString();
+                String[] wns = s1.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                nsRecords.Text += wns.Last().TrimEnd('.') + '\n';
             }
 
         }
@@ -144,7 +122,6 @@ namespace LVL1DomainHelper
             hosterby.Add("178.172.250.0", "255.255.255.0");
             hosterby.Add("195.137.160.0", "255.255.255.0");
             hosterby.Add("93.125.99.0", "255.255.255.0");
-            Console.WriteLine(Form1.DefaultBackColor.IsNamedColor);
         }
 
         private void changeBackground_Click(object sender, EventArgs e)

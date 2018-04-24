@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.domainNameLabel = new System.Windows.Forms.Label();
             this.domainName = new System.Windows.Forms.TextBox();
             this.buttonStart = new System.Windows.Forms.Button();
@@ -62,7 +63,7 @@
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonStart.Location = new System.Drawing.Point(366, 59);
+            this.buttonStart.Location = new System.Drawing.Point(381, 59);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(149, 60);
             this.buttonStart.TabIndex = 2;
@@ -134,7 +135,7 @@
             // changeBackground
             // 
             this.changeBackground.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.changeBackground.Location = new System.Drawing.Point(366, 124);
+            this.changeBackground.Location = new System.Drawing.Point(381, 122);
             this.changeBackground.Name = "changeBackground";
             this.changeBackground.Size = new System.Drawing.Size(149, 62);
             this.changeBackground.TabIndex = 10;
@@ -144,9 +145,10 @@
             // 
             // Form1
             // 
+            this.AcceptButton = this.buttonStart;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 418);
+            this.ClientSize = new System.Drawing.Size(564, 421);
             this.Controls.Add(this.changeBackground);
             this.Controls.Add(this.nsRecords);
             this.Controls.Add(this.label1);
@@ -157,6 +159,7 @@
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.domainName);
             this.Controls.Add(this.domainNameLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "DAPAMOGA";
             this.Load += new System.EventHandler(this.Form1_Load);
